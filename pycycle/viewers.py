@@ -472,7 +472,7 @@ def print_bleed(prob, element_names, file=sys.stdout, units='Default'):
     
     if units == 'Default':
         print('Default')
-        names_units   = [                          'lbm/s' ,  'degR','Btu/lbm',  'lbf/inch**2'   ]   
+        names_units   = [                           ''     ,  ''    , ''     ,  ''    ]   
     # define the SI units for each variables
     elif units=='SI': 
         names_units   = [                           'kg/s' ,  'K'   , 'kJ/kg', 'Pa'   ]   
@@ -517,10 +517,20 @@ def print_bleed(prob, element_names, file=sys.stdout, units='Default'):
     ind = 0
     for name in names:
         full_name = '{}.{}'.format(e_name, name)
+        
+        # need to find the name of the bleed
+        bleed = prob.model._get_subsystem(e_name)
+        bleed_names = bleed.options['bleed_names']
+        full_name = bleed.pathname + '.' + bleed_names[0] + ':' + name
+        
         if names_units[ind] != '':
             data_units.append(names_units[ind])
         else:
-            data_units.append(prob.model.get_io_metadata(iotypes=('input','output'))[prom_name_to_abs[full_name]]['units'])
+            try: 
+                data_units.append(prob.model.get_io_metadata(iotypes=('input','output'))[prom_name_to_abs[full_name]]['units'])
+            except KeyError: # for data not described in the metadata - try the direct way
+                data_units.append(prob.model.get_io_metadata(iotypes=('input','output'))[full_name]['units'])
+            
         ind = ind + 1 
         
     vals_units = ['         ' + units + ' units'] + ["-"]*3 + data_units
@@ -585,7 +595,8 @@ def print_shaft(prob, element_names, file=sys.stdout, units='Default'):
     if units == 'Default':
         print('Default')
         #  !!!! automated method to find default units does not work for shaft properties - define manually !!!!
-        names_units   = [ 'rpm' , 'ft*lbf', 'ft*lbf' ,   'hp'  ,    'hp'  ]    
+        # names_units   = [ 'rpm' , 'ft*lbf', 'ft*lbf' ,   'hp'  ,    'hp'  ]    
+        names_units   = [ ''    , ''      , ''       ,   ''    ,    ''    ]    
     # define the SI units for each variables
     elif units=='SI': 
         names_units   = [ 'rpm' , 'N*m'   ,  'N*m'   ,   'kW'  ,    'kW'  ]
@@ -622,7 +633,10 @@ def print_shaft(prob, element_names, file=sys.stdout, units='Default'):
         if names_units[ind] != '':
             data_units.append(names_units[ind])
         else:
-            data_units.append(prob.model.get_io_metadata(iotypes=('input','output'))[prom_name_to_abs[full_name]]['units'])
+            try: 
+                data_units.append(prob.model.get_io_metadata(iotypes=('input','output'))[prom_name_to_abs[full_name]]['units'])
+            except KeyError: 
+                data_units.append(prob.model.get_io_metadata(iotypes=('input','output'))[full_name]['units'])
         ind = ind + 1 
         
     vals_units = ['         ' + units + ' units'] + data_units
