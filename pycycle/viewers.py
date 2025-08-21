@@ -214,7 +214,6 @@ def print_burner(prob, element_names, file=sys.stdout, units='Default'):
     
     
     if units == 'Default':
-        print('Default')
         names_units   = [     ''   ,   ''   ]    
     # define the SI units for each variables
     elif units=='SI': 
@@ -290,7 +289,6 @@ def print_turbine(prob, element_names, file=sys.stdout, units='Default'):
 
     
     if units == 'Default':
-        print('Default')
         names_units   = [  ''  , ''  ,   ''   ,    ''     , ''  ,   ''   ,    ''      ,      ''    ,         ''    ]      
     # define the SI units for each variables
     elif units=='SI': 
@@ -374,7 +372,6 @@ def print_nozzle(prob, element_names, file=sys.stdout, units='Default'):
     names         = [ 'PR', 'Cv', 'Cfg', 'Throat:stat:area', 'Throat:stat:MN', 'Fl_O:stat:MN', 'Fl_O:stat:V', 'Fg']
      
     if units == 'Default':
-         print('Default')
          names_units   = [  '' ,  '' , ''   ,   ''              ,     ''          ,       ''      ,    ''        ,  '' ]
     # define the SI units for each variables
     elif units=='SI': 
@@ -471,7 +468,6 @@ def print_bleed(prob, element_names, file=sys.stdout, units='Default'):
     names         = [                              'stat:W', 'tot:T', 'tot:h', 'tot:P']
     
     if units == 'Default':
-        print('Default')
         names_units   = [                           ''     ,  ''    , ''     ,  ''    ]   
     # define the SI units for each variables
     elif units=='SI': 
@@ -593,7 +589,6 @@ def print_shaft(prob, element_names, file=sys.stdout, units='Default'):
     names         = display_names
     
     if units == 'Default':
-        # print('Default')
         #  !!!! automated method to find default units does not work for shaft properties - define manually !!!!
         # names_units   = [ 'rpm' , 'ft*lbf', 'ft*lbf' ,   'hp'  ,    'hp'  ]    
         names_units   = [ ''    , ''      , ''       ,   ''    ,    ''    ]    
