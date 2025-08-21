@@ -593,7 +593,7 @@ def print_shaft(prob, element_names, file=sys.stdout, units='Default'):
     names         = display_names
     
     if units == 'Default':
-        print('Default')
+        # print('Default')
         #  !!!! automated method to find default units does not work for shaft properties - define manually !!!!
         # names_units   = [ 'rpm' , 'ft*lbf', 'ft*lbf' ,   'hp'  ,    'hp'  ]    
         names_units   = [ ''    , ''      , ''       ,   ''    ,    ''    ]    
